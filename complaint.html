@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>投诉提交 - 企业微信防风投诉</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1677ff',
+                        success: '#52c41a',
+                        warning: '#faad14',
+                        danger: '#f5222d',
+                        info: '#1890ff'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <div class="max-w-md mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md p-6">
+            <h1 class="text-xl font-bold text-center text-gray-800 mb-6">投诉提交</h1>
+            
+            <div class="mb-6">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">请选择投诉原因</h2>
+                
+                <div class="space-y-4">
+                    <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 cursor-pointer complaint-option" data-type="harassment">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-800">发布不适当内容对我造成骚扰</span>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 cursor-pointer complaint-option" data-type="fraud">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-800">存在欺诈骗钱行为</span>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 cursor-pointer complaint-option" data-type="hacked">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-800">此账号可能被盗用了</span>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 cursor-pointer complaint-option" data-type="infringement">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-800">存在侵权行为(侵犯知识产权、人身权)</span>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 cursor-pointer complaint-option" data-type="counterfeit">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-800">发布仿冒品信息</span>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 cursor-pointer complaint-option" data-type="impersonation">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-800">冒充他人</span>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 cursor-pointer complaint-option" data-type="minor_abuse">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-800">侵犯未成年人权益</span>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    
+                    <div class="border border-gray-200 rounded-md p-4 hover:bg-gray-50 cursor-pointer complaint-option" data-type="fan_behavior">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-800">粉丝无底线追星行为</span>
+                            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-6 hidden" id="detailForm">
+                <h2 class="text-lg font-semibold text-gray-700 mb-4">投诉详情</h2>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">投诉描述</label>
+                    <textarea id="complaintDescription" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary h-24" placeholder="请详细描述投诉内容"></textarea>
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">联系方式</label>
+                    <input type="text" id="contactInfo" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" placeholder="请留下您的联系方式，以便我们及时回复">
+                </div>
+                
+                <div class="mb-4">
+                    <label class="block text-sm font-medium text-gray-700 mb-1">上传证据</label>
+                    <div class="border-2 border-dashed border-gray-300 rounded-md p-4 text-center">
+                        <svg class="w-12 h-12 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <p class="text-sm text-gray-600">点击或拖拽文件到此处上传</p>
+                        <input type="file" id="evidenceFile" class="hidden" multiple>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center space-x-4">
+                    <button id="cancelBtn" class="px-6 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2">取消</button>
+                    <button id="submitBtn" class="px-6 py-2 bg-primary text-white rounded-md hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">提交投诉</button>
+                </div>
+            </div>
+            
+            <div class="mt-6 text-center">
+                <p class="text-sm text-gray-500">
+                    <a href="index.html" class="text-primary hover:underline">返回配置页面</a>
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // 投诉类型选择
+        document.querySelectorAll('.complaint-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const type = this.dataset.type;
+                document.getElementById('detailForm').classList.remove('hidden');
+            });
+        });
+        
+        // 取消按钮
+        document.getElementById('cancelBtn').addEventListener('click', function() {
+            document.getElementById('detailForm').classList.add('hidden');
+            document.getElementById('complaintDescription').value = '';
+            document.getElementById('contactInfo').value = '';
+            document.getElementById('evidenceFile').value = '';
+        });
+        
+        // 提交投诉
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const description = document.getElementById('complaintDescription').value;
+            const contact = document.getElementById('contactInfo').value;
+            
+            if (!description) {
+                alert('请填写投诉描述');
+                return;
+            }
+            
+            // 模拟提交
+            alert('投诉提交成功！我们会尽快处理您的投诉。');
+            document.getElementById('detailForm').classList.add('hidden');
+            document.getElementById('complaintDescription').value = '';
+            document.getElementById('contactInfo').value = '';
+            document.getElementById('evidenceFile').value = '';
+        });
+        
+        // 文件上传
+        const dropArea = document.querySelector('.border-dashed');
+        const fileInput = document.getElementById('evidenceFile');
+        
+        dropArea.addEventListener('click', function() {
+            fileInput.click();
+        });
+        
+        dropArea.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            dropArea.classList.add('border-primary');
+        });
+        
+        dropArea.addEventListener('dragleave', function() {
+            dropArea.classList.remove('border-primary');
+        });
+        
+        dropArea.addEventListener('drop', function(e) {
+            e.preventDefault();
+            dropArea.classList.remove('border-primary');
+            if (e.dataTransfer.files.length > 0) {
+                fileInput.files = e.dataTransfer.files;
+                alert(`已选择 ${e.dataTransfer.files.length} 个文件`);
+            }
+        });
+        
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                alert(`已选择 ${this.files.length} 个文件`);
+            }
+        });
+    </script>
+</body>
+</html>
