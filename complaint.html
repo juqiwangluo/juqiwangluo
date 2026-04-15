@@ -173,10 +173,36 @@
         </div>
     </div>
     
+    <!-- 投诉成功页面 -->
+    <div id="successPage" class="min-h-screen bg-white hidden">
+        <!-- 顶部导航 -->
+        <div class="flex items-center justify-between px-4 py-4 border-b border-gray-200">
+            <div class="w-5"></div>
+            <h1 class="text-lg font-medium text-gray-900">企业微信投诉</h1>
+            <button id="closeBtn" class="text-gray-600">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+        
+        <!-- 成功内容 -->
+        <div class="flex flex-col items-center justify-center h-[80vh]">
+            <div class="w-24 h-24 rounded-full bg-success flex items-center justify-center mb-6">
+                <svg class="w-12 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+            </div>
+            <h2 class="text-xl font-medium text-gray-900 mb-2">投诉已提交</h2>
+            <p class="text-gray-500 text-center px-8">你的投诉已经提交审核，我们会尽快处理。</p>
+        </div>
+    </div>
+    
     <script>
         // 页面切换
         const reasonPage = document.getElementById('reasonPage');
         const detailPage = document.getElementById('detailPage');
+        const successPage = document.getElementById('successPage');
         
         // 投诉类型选择
         document.querySelectorAll('.complaint-option').forEach(option => {
@@ -195,6 +221,12 @@
         document.getElementById('backBtn2').addEventListener('click', function() {
             detailPage.classList.add('hidden');
             reasonPage.classList.remove('hidden');
+        });
+        
+        // 关闭按钮
+        document.getElementById('closeBtn').addEventListener('click', function() {
+            // 可以返回上一页或关闭页面
+            window.history.back();
         });
         
         // 聊天证据选择
@@ -266,8 +298,9 @@
             }
             
             // 模拟提交
-            alert('投诉提交成功！我们会尽快处理您的投诉。');
-            
-            // 重置表单
-            document.getElementById('chatEvidenceCount').textContent = '0条聊天证据';
-            document.getElementById('imageEvidenceCount')
+            detailPage.classList.add('hidden');
+            successPage.classList.remove('hidden');
+        });
+    </script>
+</body>
+</html>
