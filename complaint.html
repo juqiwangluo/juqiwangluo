@@ -151,6 +151,14 @@
                 </div>
             </div>
             
+            <!-- 手机号 -->
+            <div class="mb-6">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-gray-800">手机号(必填)</span>
+                </div>
+                <input type="tel" id="phoneNumber" class="w-full border border-gray-200 rounded-md p-3" placeholder="请输入您的手机号">
+            </div>
+            
             <!-- 投诉内容 -->
             <div class="mb-6">
                 <div class="flex justify-between items-center mb-2">
@@ -244,10 +252,16 @@
         // 提交投诉
         document.getElementById('submitBtn').addEventListener('click', function() {
             const chatEvidenceCount = document.getElementById('chatEvidenceCount').textContent;
+            const phoneNumber = document.getElementById('phoneNumber').value;
             const complaintContent = document.getElementById('complaintContent').value;
             
             if (chatEvidenceCount === '0条聊天证据') {
                 alert('请选择聊天证据');
+                return;
+            }
+            
+            if (!phoneNumber) {
+                alert('请输入手机号');
                 return;
             }
             
@@ -256,19 +270,4 @@
             
             // 重置表单
             document.getElementById('chatEvidenceCount').textContent = '0条聊天证据';
-            document.getElementById('imageEvidenceCount').textContent = '0张/9';
-            document.getElementById('complaintContentCount').textContent = '0/200';
-            document.getElementById('complaintContent').value = '';
-            
-            // 清空图片预览
-            const imagePreviews = document.querySelectorAll('#addImageBtn ~ div');
-            imagePreviews.forEach(preview => preview.remove());
-            imageCount = 0;
-            
-            // 返回到投诉原因选择页面
-            detailPage.classList.add('hidden');
-            reasonPage.classList.remove('hidden');
-        });
-    </script>
-</body>
-</html>
+            document.getElementById('imageEvidenceCount')
